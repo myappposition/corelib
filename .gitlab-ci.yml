@@ -14,9 +14,9 @@ maven-build:
   image: maven:3-jdk-8
   stage: build
   before_script:
-    - echo "$M2_SETTINGS_XML" > .m2/settings.xml
+    - echo "$MYSEC_M2_SETTINGS_XML" > .m2/settings.xml
     - export DOCKER_CONTAINER_IP=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)
-    #unset all MYSEC** vars
+      #unset all MYSEC** vars
     - echo secure vars && env | grep -Po '^MYSEC[^=]+'
     - unset $(env | grep -Po '^MYSEC[^=]+' | xargs)
   script: "mvn $MAVEN_CLI_OPTS clean deploy "
