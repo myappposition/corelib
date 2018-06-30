@@ -15,7 +15,7 @@ maven-build:
   stage: build
   before_script:
       #unset all MYSEC** vars
-    - echo secure vars && grep -Po '^MYSEC[^=]+'
+    - echo secure vars && env | grep -Po '^MYSEC[^=]+'
     - unset $(env | grep -Po '^MYSEC[^=]+' | xargs)
     - echo "$M2_SETTINGS_XML" > .m2/settings.xml && unset M2_SETTINGS_XML
     - env
