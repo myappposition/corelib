@@ -14,10 +14,10 @@ maven-build:
   image: maven:3-jdk-8
   stage: build
   before_script:
-    - echo "$M2_SETTINGS_XML" > .m2/settings.xml
+    - echo "$M2_SETTINGS_XML" > .m2/settings.xml && unset $M2_SETTINGS_XML
     - env
     - export DOCKER_CONTAINER_IP=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)
-  script: "mvn $MAVEN_CLI_OPTS clean deploy -Dremote=http://selenium:4444/wd/hub -Dbrowser=chrome"
+  script: "mvn $MAVEN_CLI_OPTS clean deploy "
   cache:
     paths:
       - .m2/repository/
